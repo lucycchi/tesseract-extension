@@ -1,84 +1,83 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Basic Usage</title>
-    <link href="style.css" type="text/css" rel="stylesheet" />
-  </head>
-  <body>
-    <button id="img-to-txt">
-      Convert image to text
-    </button>
-    <div id="dropbox">
-      DropZone => you could drop any image from any page here
-    </div>
-    <img
-      id="img"
-      src="https://miro.medium.com/max/1848/1*iKHi4xjCBoj--cmCOdJxCw.png"
-      alt="Your code here"
-    />
-    <div id="box"></div>
 
-    <script src="https://unpkg.com/tesseract.js@2.0.2/dist/tesseract.min.js"></script>
-    <script>
-      const exampleImage =
-        'https://miro.medium.com/max/1848/1*iKHi4xjCBoj--cmCOdJxCw.png';
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Basic Usage</title>
+  <link href="style.css" type="text/css" rel="stylesheet" />
+</head>
 
-      var dropbox = document.getElementById('dropbox');
+<body>
+  <div class="message-input">
+    <input placeholder="paste image URL here" />
+    <button id="send-chat">Send</button>
+  </div>
 
-      dropbox.addEventListener('dragenter', noopHandler, false);
-      dropbox.addEventListener('dragexit', noopHandler, false);
-      dropbox.addEventListener('dragover', noopHandler, false);
-      dropbox.addEventListener('drop', drop, false);
+  <div id="dropbox">
+    could drop any image from any page here
+  </div>
+  <img id="img" src="https://miro.medium.com/max/1848/1*iKHi4xjCBoj--cmCOdJxCw.png" alt="Your code here" />
+  <div id="box"></div>
 
-      function noopHandler(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-      }
-      function drop(evt) {
-        evt.stopPropagation();
-        evt.preventDefault();
-        var imageUrl = evt.dataTransfer.getData('url');
-        alert(imageUrl);
-        // var imgURL = $(dropContext).find('img').attr('src');
-        // alert(imgURL);
-      }
+  <script src="https://unpkg.com/tesseract.js@2.0.2/dist/tesseract.min.js"></script>
+  <script>
+    // const exampleImage =
+    //   'https://miro.medium.com/max/1848/1*iKHi4xjCBoj--cmCOdJxCw.png';
 
-      const worker = Tesseract.createWorker({
-        logger: (m) => console.log(m),
-      });
-      Tesseract.setLogging(true);
-      work();
+    // var dropbox = document.getElementById('dropbox');
 
-      async function work() {
-        await worker.load();
-        await worker.loadLanguage('eng');
-        await worker.initialize('eng');
+    // dropbox.addEventListener('dragenter', noopHandler, false);
+    // dropbox.addEventListener('dragexit', noopHandler, false);
+    // dropbox.addEventListener('dragover', noopHandler, false);
+    // dropbox.addEventListener('drop', drop, false);
 
-        let result = await worker.detect(exampleImage);
-        console.log('detect', result.data);
+    // function noopHandler(evt) {
+    //   evt.stopPropagation();
+    //   evt.preventDefault();
+    // }
+    // function drop(evt) {
+    //   evt.stopPropagation();
+    //   evt.preventDefault();
+    //   var imageUrl = evt.dataTransfer.getData('url');
+    //   alert(imageUrl);
+    //   // var imgURL = $(dropContext).find('img').attr('src');
+    //   // alert(imgURL);
+    // }
 
-        result = await worker.recognize(exampleImage);
-        console.log('recognize', result.data);
-        console.log('recognize-text', result.data.text);
-        addMsg(result.data.text);
+    // const worker = Tesseract.createWorker({
+    //   logger: (m) => console.log(m),
+    // });
+    // Tesseract.setLogging(true);
+    // work();
 
-        function addMsg(snippet) {
-          let box = document.getElementById('box');
-          let div = document.createElement('div');
-          div.innerHTML = snippet;
-          box.appendChild(div);
-        }
+    // async function work() {
+    //   await worker.load();
+    //   await worker.loadLanguage('eng');
+    //   await worker.initialize('eng');
 
-        await worker.terminate();
-      }
-    </script>
-  </body>
+    //   let result = await worker.detect(exampleImage);
+    //   console.log('detect', result.data);
 
-  <script src="options.js"></script>
+    //   result = await worker.recognize(exampleImage);
+    //   console.log('recognize', result.data);
+    //   console.log('recognize-text', result.data.text);
+    //   addMsg(result.data.text);
+
+    //   function addMsg(snippet) {
+    //     let box = document.getElementById('box');
+    //     let div = document.createElement('div');
+    //     div.innerHTML = snippet;
+    //     box.appendChild(div);
+    //   }
+
+    //   await worker.terminate();
+    // }
+  </script>
+</body>
+
+<script src="options.js"></script>
+
 </html>

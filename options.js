@@ -4,21 +4,21 @@
 
 'use strict';
 
-let page = document.getElementById('buttonDiv');
-const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
-function constructOptions(kButtonColors) {
-  for (let item of kButtonColors) {
-    let button = document.createElement('button');
-    button.style.backgroundColor = item;
-    button.addEventListener('click', function () {
-      chrome.storage.sync.set({ color: item }, function () {
-        console.log('color is ' + item);
-      });
-    });
-    page.appendChild(button);
-  }
-}
-constructOptions(kButtonColors);
+// let page = document.getElementById('buttonDiv');
+// const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1'];
+// function constructOptions(kButtonColors) {
+//   for (let item of kButtonColors) {
+//     let button = document.createElement('button');
+//     button.style.backgroundColor = item;
+//     button.addEventListener('click', function () {
+//       chrome.storage.sync.set({ color: item }, function () {
+//         console.log('color is ' + item);
+//       });
+//     });
+//     page.appendChild(button);
+//   }
+// }
+// constructOptions(kButtonColors);
 
 var dropbox = document.getElementById('dropbox');
 
@@ -31,21 +31,29 @@ function noopHandler(evt) {
   evt.stopPropagation();
   evt.preventDefault();
 }
+let exampleImage = "";
+//'https://miro.medium.com/max/1848/1*iKHi4xjCBoj--cmCOdJxCw.png';
+
 function drop(evt) {
   evt.stopPropagation();
   evt.preventDefault();
   var imageUrl = evt.dataTransfer.getData('text/html');
-  addMsg(imageUrl);
+  //addMsg(imageUrl);
+  console.log("imageUrl", imageUrl);
+  //alert(imageUrl)
+  console.log('imageURL-regex', imageUrl.match(/src=(.+?[\.jpg|\.gif|\.png]")/)[1])
+  exampleImage = imageUrl.match(/src=(.+?[\.jpg|\.gif|\.png]")/)[1]
+  //exampleImage = new URL(exampleImage);
+  //console.log("string to URL", exampleImage);
+  work();
 }
 
-const exampleImage =
-  'https://miro.medium.com/max/1848/1*iKHi4xjCBoj--cmCOdJxCw.png';
 
 const worker = Tesseract.createWorker({
   logger: (m) => console.log(m),
 });
 Tesseract.setLogging(true);
-work();
+//work(); //this calls the work function which calls tesseract
 
 async function work() {
   await worker.load();
