@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Basic Usage</title>
+  </head>
+  <body>
+    <button id="img-to-txt">
+      Convert image to text
+    </button>
+
+    <script src="https://unpkg.com/tesseract.js@2.0.2/dist/tesseract.min.js"></script>
+    <script>
+      const exampleImage =
+        'https://image.slidesharecdn.com/paragraphwriting-170808101130/95/paragraph-writing-1-638.jpg?cb=1502188138';
+
+      const worker = Tesseract.createWorker({
+        logger: (m) => console.log(m),
+      });
+      Tesseract.setLogging(true);
+      work();
+
+      async function work() {
+        await worker.load();
+        await worker.loadLanguage('eng');
+        await worker.initialize('eng');
+
+        let result = await worker.detect(exampleImage);
+        console.log('detect', result.data);
+
+        result = await worker.recognize(exampleImage);
+        console.log('recognize', result.data);
+        console.log('recognize-text', result.data.text);
+        alert(result.data.text);
+
+        await worker.terminate();
+      }
+    </script>
+
+    <div id="buttonDiv"></div>
+    <div>
+      <p>Choose a different background color!</p>
+    </div>
+  </body>
+
+  <script src="options.js"></script>
+</html>
