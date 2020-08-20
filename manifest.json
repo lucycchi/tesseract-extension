@@ -8,6 +8,8 @@
     "scripts": ["background.js"],
     "persistent": false
   },
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://unpkg.com/tesseract.js@2.0.2/dist/tesseract.min.js; object-src 'self",
+
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {

@@ -8,16 +8,46 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Basic Usage</title>
+    <link href="style.css" type="text/css" rel="stylesheet" />
   </head>
   <body>
     <button id="img-to-txt">
       Convert image to text
     </button>
+    <div id="dropbox">
+      DropZone => you could drop any image from any page here
+    </div>
+    <img
+      id="img"
+      src="https://miro.medium.com/max/1848/1*iKHi4xjCBoj--cmCOdJxCw.png"
+      alt="Your code here"
+    />
+    <div id="box"></div>
 
     <script src="https://unpkg.com/tesseract.js@2.0.2/dist/tesseract.min.js"></script>
     <script>
       const exampleImage =
-        'https://image.slidesharecdn.com/paragraphwriting-170808101130/95/paragraph-writing-1-638.jpg?cb=1502188138';
+        'https://miro.medium.com/max/1848/1*iKHi4xjCBoj--cmCOdJxCw.png';
+
+      var dropbox = document.getElementById('dropbox');
+
+      dropbox.addEventListener('dragenter', noopHandler, false);
+      dropbox.addEventListener('dragexit', noopHandler, false);
+      dropbox.addEventListener('dragover', noopHandler, false);
+      dropbox.addEventListener('drop', drop, false);
+
+      function noopHandler(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+      }
+      function drop(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        var imageUrl = evt.dataTransfer.getData('url');
+        alert(imageUrl);
+        // var imgURL = $(dropContext).find('img').attr('src');
+        // alert(imgURL);
+      }
 
       const worker = Tesseract.createWorker({
         logger: (m) => console.log(m),
@@ -36,16 +66,18 @@
         result = await worker.recognize(exampleImage);
         console.log('recognize', result.data);
         console.log('recognize-text', result.data.text);
-        alert(result.data.text);
+        addMsg(result.data.text);
+
+        function addMsg(snippet) {
+          let box = document.getElementById('box');
+          let div = document.createElement('div');
+          div.innerHTML = snippet;
+          box.appendChild(div);
+        }
 
         await worker.terminate();
       }
     </script>
-
-    <div id="buttonDiv"></div>
-    <div>
-      <p>Choose a different background color!</p>
-    </div>
   </body>
 
   <script src="options.js"></script>
