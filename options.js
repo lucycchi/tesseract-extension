@@ -39,15 +39,25 @@ function drop(evt) {
   evt.preventDefault();
   var imageUrl = evt.dataTransfer.getData('text/html');
   //addMsg(imageUrl);
-  console.log("imageUrl", imageUrl);
-  //alert(imageUrl)
-  console.log('imageURL-regex', imageUrl.match(/src=(.+?[\.jpg|\.gif|\.png]")/)[1])
-  exampleImage = imageUrl.match(/src=(.+?[\.jpg|\.gif|\.png]")/)[1]
+  // console.log("imageUrl", imageUrl);
+  alert(imageUrl.match(/src=(.+?[\.jpg|\.gif|\.png]")/)[1])
+  // console.log('imageURL-regex', imageUrl.match(/src=(.+?[\.jpg|\.gif|\.png]")/)[1])
+  // exampleImage = imageUrl.match(/src=(.+?[\.jpg|\.gif|\.png]")/)[1]
   //exampleImage = new URL(exampleImage);
   //console.log("string to URL", exampleImage);
-  work();
+  // work();
 }
 
+//functionality for button
+//create sendButton=traverse DOM and find button by ID: 'send-chat'
+const sendButton = document.getElementById('send-chat')
+//add event listener to sendButton, 1st arg= 'click', 2nd arg= callback: captures event and saves it as e, pass value property on e to the POST request as a string (this will be the text input from class=message-input)
+sendButton.addEventListener('click', function (e) {
+  //e->target->previousElementSibling->value
+  console.log('input text-from button', e.target.previousElementSibling.value)
+  exampleImage = e.target.previousElementSibling.value;
+  work();
+})
 
 const worker = Tesseract.createWorker({
   logger: (m) => console.log(m),

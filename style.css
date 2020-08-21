@@ -1,25 +1,71 @@
+body{
+  background-color: black;
+}
+
+#main {
+  display: flex;
+  background-color: black;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#left-container {
+
+background-color: black;
+}
+
+#center-container{
+  width: 30%;
+}
+
 #box {
+  color: white;
   border: 1px solid black;
-  width: 40%;
+  border-radius: 25px;
+  width: 85%;
   height: 350px;
   overflow-x: hidden;
   overflow-y: auto;
   text-align: center;
   padding: 20px;
   margin: 0 auto;
+  font-size: larger;
 }
 
-#img {
-  height: 200px;
+#tess-image {
+  width: 300px;
+  height: 300px;
+}
+
+
+#container {
+ width: 30%;
+  text-align: center;
+  margin: 50px;
+  color: black;
+}
+
+.message-input{
+  border-radius: 5px;
 }
 
 #dropbox {
+  background-color: white;
+  border-radius: 25px;
   border: 1px solid black;
-  width: 40%;
+  width: 90%;
   height: 200px;
   overflow-x: hidden;
   overflow-y: auto;
   text-align: center;
   padding: 20px;
   margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#send-chat{
+  background-color: aliceblue;
+  width: 70%;
+  border-radius: 3px;
 }

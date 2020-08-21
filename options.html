@@ -11,19 +11,30 @@
 </head>
 
 <body>
-  <div class="message-input">
-    <input placeholder="paste image URL here" />
-    <button id="send-chat">Send</button>
-  </div>
+  <div id="main">
+    <div id="left-container">
+      <img id="tess-image" src="../tesseract-extension/images/91vk.gif" alt="animated tesseract" />
+    </div>
 
-  <div id="dropbox">
-    could drop any image from any page here
-  </div>
-  <img id="img" src="https://miro.medium.com/max/1848/1*iKHi4xjCBoj--cmCOdJxCw.png" alt="Your code here" />
-  <div id="box"></div>
+    <div id="center-container">
+      <div id="box"></div>
 
-  <script src="https://unpkg.com/tesseract.js@2.0.2/dist/tesseract.min.js"></script>
-  <script>
+    </div>
+
+    <div id="container">
+      <div class="message-input">
+        <input placeholder="paste image URL here" />
+
+        <a class="waves-effect waves-light btn" id="send-chat">Send</a>
+      </div>
+
+      <div id="dropbox">
+        drag and drop image here
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/tesseract.js@2.0.2/dist/tesseract.min.js"></script>
+    <script>
     // const exampleImage =
     //   'https://miro.medium.com/max/1848/1*iKHi4xjCBoj--cmCOdJxCw.png';
 
@@ -75,7 +86,8 @@
 
     //   await worker.terminate();
     // }
-  </script>
+    </script>
+  </div>
 </body>
 
 <script src="options.js"></script>
